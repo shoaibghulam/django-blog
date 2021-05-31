@@ -1,0 +1,107 @@
+{% extends "public/base.html" %}
+{% load static %}
+{% block title %}
+Home
+{% endblock title %}
+{% block single-post %}
+
+{% comment %} single post start {% endcomment %}
+  <div class="card">
+                                <div class="card-body">
+                                    <div class="post-img">
+                                        <img src="{{data.0.pthumbnail.url}}" style="widht:770px; height:349px" alt="main post">
+                                        <div class="title-tag">
+                                            <a href="/category/{{data.0.category.pk}}">{{data.0.category}}</a>
+                                        </div>
+                                    </div>
+                                    <div class="post-title">
+                                        <div class="title">
+                                            <a href="#">{{data.0.ptitle}}</a>
+                                        </div>
+                                        <p>{{data.0.pdesc|slice:468|safe}}</p>
+                                        <ul>
+                                            <li>
+                                                <div class="profile">
+                                                    <div class="profile-img">
+                                                        <img src="{{about.profile.url}}" style="width:25px; height:25px;" alt="blog profile">
+                                                    </div>
+                                                    <p>{{about.firstName}} {{about.lasetName}}</p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                               {{data.0.pdate}}
+                                            </li>
+                                         
+                                        </ul>
+                                        <div class="link">
+                                            <a href="/view/{{data.0.pk}}">Continue Reading......</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+{% comment %} single post end {% endcomment %}
+{% endblock single-post %}
+ {% block body %}
+ <!-- Top Post Start -->
+            <section class="top-post">
+                <div class="container">
+                  
+                    <div class="row">
+                    {% for data in data|slice:"1:7" %}
+                        <div class="col-md-6 col-lg-4">
+                            <div class="post-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="post-img">
+                                            <img src="{{data.pthumbnail.url}}" style="width:370px; height:226px;" alt="p-post">
+                                            <div class="title-tag">
+                                                <a href="/category/{{data.category.pk}}">{{data.category}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="post-title">
+                                            <div class="title">
+                                                <a href="/view/{{data.pk}}">{{data.ptitle}}</a>
+                                            </div>
+                                            <p>{{data.pdate}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+              
+                    </div>
+                </div>
+            </section>
+            <!-- Top Post End -->
+
+             <!-- Post Slide Start -->
+            <section class="post-slide">
+                <div class="container">
+                    <div class="row text-center">
+                    {% for data in data|slice:"7:"  %}
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="post-img">
+                                        <img src="{{data.pthumbnail.url}}" style="width: 100%; height: 200px;" alt="post img">
+                                        <div class="title-tag">
+                                            <a href="/category/{{data.category.pk}}">{{data.category}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="title">
+                                        <a href="/view/{{data.pk}}">{{data.ptitle}}</a>
+                                    </div>
+                                    <p>{{dat.ptitle}}</p>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                  
+                    </div>
+                </div>
+            </section>
+{% endblock body %}

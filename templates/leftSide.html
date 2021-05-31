@@ -1,0 +1,43 @@
+{% load static %}
+<style>
+    
+/* custom css */
+.profile-thumb{
+  border-radius: 202px;
+  height: 208px;
+  width: 208px;
+  margin: 20px 0;
+}
+</style>
+<div class="widget mt-4">
+    <div class="col-md-12 profile-div text-center ">
+        <img class="profile-thumb" src="{{about.profile.url}}" alt="">
+        <h5>{{about.firstName}} {{about.lasetName}}</h5>
+        <p>{{about.desc}}</p>
+    </div>
+  
+</div>
+
+  <div class="widget">
+                                <div class="widget-card">
+                                    <div class="title">
+                                        <h5>Latest  Posts</h5>
+                                       
+                                    </div>
+                                    <ul>
+                                       {% for data in data|slice:"0:3" %}
+                                        <li>
+                                            <div class="w-img">
+                                                <img src="{{data.pthumbnail.url}}" alt="widget Img">
+                                            </div>
+                                            <div class="w-text">
+                                                <a href="/view/{{data.pk}}">{{data.ptitle}}
+                                                </a>
+                                                <p>{{data.pdate}}</p>
+                                            </div>
+                                        </li>
+                                      {% endfor %}
+                                    </ul>
+                                </div>
+                     
+                            </div>

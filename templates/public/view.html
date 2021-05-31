@@ -1,0 +1,39 @@
+{% extends "public/base.html" %}
+{% load static %}
+{% block title %}
+{{single.ptitle}}
+{% endblock title %}
+{% block single-post %}
+
+{% comment %} single post start {% endcomment %}
+  <div class="card">
+                                <div class="card-body">
+                                  <div class="post-title">
+                                        <div class="title">
+                                            <a href="javscript:void(0)">{{single.ptitle}}</a>
+                                        </div>
+                                            <ul>
+                                          
+                                            <li>
+                                              
+                                               {{single.pdate}}
+                                            </li>
+                                        
+                                        </ul>
+                                        </div>
+                                    <div class="post-img">
+                                        <img src=" {{single.pthumbnail.url}}" alt="main post">
+                                        <div class="title-tag">
+                                            <a href="/category/{{single.category.pk}}">{{single.category}}</a>
+                                        </div>
+                                    </div>
+                                    <div class="post-title">
+                                       
+                                      {{single.pdesc|safe}}
+                                    
+                                       
+                                    </div>
+                                </div>
+                            </div>
+{% comment %} single post end {% endcomment %}
+{% endblock single-post %}

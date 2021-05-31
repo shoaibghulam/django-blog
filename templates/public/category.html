@@ -1,0 +1,42 @@
+{% extends "public/base.html" %}
+{% load static %}
+{% block title %}
+  index page
+{% endblock title %}
+
+ {% block single-post %}
+ <!-- Top Post Start -->
+            <section class="top-post">
+                <div class="container">
+                  
+                    <div class="row">
+                    {% for data in data %}
+                        <div class="col-md-6 col-lg-6">
+                              <div class="post-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="post-img">
+                                            <img src="{{data.pthumbnail.url}}" style="width:370px; height:226px;" alt="p-post">
+                                            <div class="title-tag">
+                                                <a href="/category/{{data.category.pk}}">{{data.category}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="post-title">
+                                            <div class="title">
+                                                <a href="/view/{{data.pk}}">{{data.ptitle}}</a>
+                                            </div>
+                                            <p>{{data.pdate}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+           
+                    </div>
+                </div>
+            </section>
+            <!-- Top Post End -->
+
+    
+{% endblock single-post %}

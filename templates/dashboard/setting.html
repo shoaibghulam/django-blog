@@ -1,0 +1,114 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block body %}
+
+<style>
+    
+/* custom profile image start */
+.profile-pic {
+   
+    height: 200px;
+    width: 260px;
+    margin: auto 0;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+    vertical-align: middle;
+    text-align: center;
+    color: transparent;
+    transition: all .3s ease;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.profile-pic:hover {
+    background-color: #28132c3f;
+    z-index: 10000;
+    color: #fff;
+    transition: all .3s ease;
+    text-decoration: none;
+    border:3px groove #9b50aa;
+}
+
+.profile-pic span {
+    display: inline-block;
+    padding-top: 4.5em;
+    padding-bottom: 4.5em;
+}
+
+
+ #fileToUpload{
+     display:none;
+ }
+ label{
+   color:#fff;
+ }
+/* custom profile image end */
+</style>
+<div class="content">
+  <div class="row">
+    <div class="col-md-8" style="margin: auto;">
+      <form action="{% url 'setting' %}" method="post" enctype="multipart/form-data">
+    {% for message in messages %}
+        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+            <strong></strong> {{message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% csrf_token %}
+          <label>First Name</label>
+          <input type="text" name="fistname" class="form-control" placeholder="Enter First name" value="{{data.firstName}}" required>
+          <label>Last Name</label>
+          <input type="text" name="lastname" class="form-control" placeholder="Enter Last Name" value="{{data.lasetName}}" required>
+          <label>Email</label>
+          <input type="email" name="email" class="form-control" placeholder="Enter Username" value="{{data.email}}" required>
+          <textarea name="desc"  class="form-control mt-4 mb-4" style="border:1px solid #fff"  cols="50" rows="20">{{data.desc}}</textarea>
+          <label>Username</label>
+          <input type="text" name="username" class="form-control" placeholder="Enter Username" value="{{data.username}}" required>
+          <label>Password</label>
+          <input type="text" name="password" class="form-control" placeholder="Enter Password" value="{{data.password}}" required>
+          <br> <br>
+    
+        
+ 
+  </div>
+  <div class="col-md-4">
+    <div class="form-group text-center">
+      
+      <label for="fileToUpload">
+          <div class="profile-pic" id="blah" style="background-image: url('{{request.session.thumb}}'); ">
+              <span class="glyphicon glyphicon-camera"></span>
+              <span>Change Image</span>
+          </div>
+      </label>
+      <input type="File" name="profile"  id="fileToUpload" onchange="readURL(this)" >
+    </div>
+  </div>
+  <div class="col-md-7 text-center">
+    <input type="submit" value="Update" class="btn btn-primary">
+  </div>
+</form>
+</div>
+</div>  
+{% endblock body %}
+{% block script %}
+    <script>
+          CKEDITOR.replace( 'editor' );
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('style',`background-image:url('${e.target.result}')` )
+                   
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+    </script>
+
+{% endblock script %}

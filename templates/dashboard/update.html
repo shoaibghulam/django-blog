@@ -1,0 +1,147 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block body %}
+<style>
+    
+/* custom profile image start */
+.profile-pic {
+   
+    height: 200px;
+    width: 260px;
+    margin: auto 0;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+    vertical-align: middle;
+    text-align: center;
+    color: transparent;
+    transition: all .3s ease;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.profile-pic:hover {
+    background-color: #28132c3f;
+    z-index: 10000;
+    color: #fff;
+    transition: all .3s ease;
+    text-decoration: none;
+    border:3px groove #9b50aa;
+}
+
+.profile-pic span {
+    display: inline-block;
+    padding-top: 4.5em;
+    padding-bottom: 4.5em;
+}
+
+
+ #fileToUpload{
+     display:none;
+ }
+/* custom profile image end */
+
+    .form-group > select > option{
+        background:#333;
+    }
+  .form-group label{
+    font-size:17px;
+    margin:0;
+    padding:0;
+    color:#fff;
+  }
+  .form-group input{
+   color:#000;
+   background-color:#fff;
+   font-size:16px;
+  }
+  .form-group input:focus{
+   color:#000;
+  }
+</style>
+<div class="content">
+  <div class="row">
+    
+
+    <!-- table start -->
+    <div class="col-md-12">
+      <div class="card ">
+        <div class="card-header">
+          <h4 class="card-title"> Update Post
+          
+          
+          </h4>
+        </div>
+        <div class="card-body">
+        <form action="/postupdate/{{pdata.pk}}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="">Title</label>
+                    <input type="text" class="form-control" name="title" value="{{pdata.ptitle}}"  placeholder="Enter Title" required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="">Category</label>
+                     <select name="cat"  class="form-control" required>
+                         <option value="{{pdata.category.cid}}"> {{pdata.category.cname}}</option>
+                         {% for data in data %}
+                            <option value="{{data.pk}}">{{data.cname}}</option>
+                         {% endfor %}
+                     </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group text-center">
+      
+                    <label for="fileToUpload">
+                        <div class="profile-pic" id="blah" style="background-image: url('{{pdata.pthumbnail.url}}')">
+                            <span class="glyphicon glyphicon-camera"></span>
+                            <span>Change Image</span>
+                        </div>
+                    </label>
+                    <input type="File" name="Profile"  id="fileToUpload" onchange="readURL(this)">
+                </div>
+            </div>
+        </div>
+  
+
+    <div class="form-group">
+        <label for="">Description</label>
+        <textarea name="desc" id="editor" required>{{pdata.pdesc}}</textarea>
+    </div>
+    <div class="form-group text-center">
+
+        <input type="submit" name="submit" class="btn btn-primary text-center" value="Update">
+    </div>
+    </form>
+         </div>
+        </div>
+      </div>
+    </div>
+    <!-- table end -->
+  </div>
+ 
+
+  
+{% endblock body %}
+{% block script %}
+    <script>
+          CKEDITOR.replace( 'editor' );
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('style',`background-image:url('${e.target.result}')` )
+                   
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+    </script>
+
+{% endblock script %}

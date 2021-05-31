@@ -1,0 +1,116 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block body %}
+<style>
+  .form-group label{
+    font-size:14px;
+    margin:0;
+    padding:0;
+  }
+  .form-group input{
+   color:#fff;
+  }
+  .form-group input:focus{
+   color:#000;
+  }
+</style>
+<div class="content">
+  <div class="row">
+    
+
+    <!-- table start -->
+    <div class="col-md-12">
+    {% for message in messages %}
+        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+            <strong></strong> {{message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+      <div class="card ">
+        <div class="card-header">
+          <h4 class="card-title"> All Post
+          
+            <div class="col-md-3 float-right">
+              <a href="/pashboardposts" class="btn btn-primary float-right " >Insert </a>
+            </div>
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table tablesorter " id="userdata">
+              <thead class=" text-primary">
+
+  <tr>
+                  <th>#</th>
+                  
+                  <th>
+                  Thumbnail
+                  </th>
+                  <th>
+                    Title
+                  </th>
+                  <th>
+                     Category
+                  </th>
+                  <th>
+                  Author
+                  </th>
+                  <th class="text-center">
+                    Date
+                  </th>
+                
+                  <th class="text-center">
+                  Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for data in data %}
+                <tr>
+                  <td>
+                  {{forloop.counter}}
+                  </td>
+                  <td>
+                  
+                   <img src="{{data.pthumbnail.url}}" width="50px" height="50px"/>
+                  </td>
+                  <td>
+                    {{data.ptitle}}
+                  </td>
+                  <td>
+                   {{data.category}}
+                  </td>
+                  <td class="text-center">
+                   {{data.user}}
+                  </td>
+                  <td class="text-center">
+                   {{data.pdate}}
+                  </td>
+                  
+                  <td>
+                    <a href="postdelete/{{data.pk}}" class="btn btn-info">
+                 <i class=" tim-icons icon-trash-simple"></i>
+                  </a>
+                    <a href="postupdate/{{data.pk}}" class="btn btn-success">
+                 <i class=" tim-icons icon-pencil"></i>
+                  </a>
+                   </td>
+                </tr>
+                {% endfor %}
+              
+              
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- table end -->
+  </div>
+ 
+</div>
+
+  
+{% endblock body %}
